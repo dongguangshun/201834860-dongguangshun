@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+dgs
+This is a temporary script file.
+"""
+
+#from textblob import TextBlob
+#import nltk
+import os
+import random
+import shutil
+
+TrainDir='C:\\Users\\89304\\Desktop\\trainSample'
+TestDir='C:\\Users\\89304\\Desktop\\testSample'
+
+def TrainAndTest(path):#区分训练集与测试集
+    allfiles=os.listdir(path)
+    for folder in allfiles:
+        folderpath=path+'\\'+folder #文件夹路径
+        files=os.listdir(folderpath) #文件列表
+        num=len(files)
+        num=int(num*0.8)  #取整
+        trainSample = random.sample(files, num)
+        for file in files:
+            filepath=path+'\\'+folder+'\\'+file
+            if file in trainSample:
+                #放入
+                copypath=TrainDir+'\\'+folder
+            else:
+                copypath=TestDir+'\\'+folder
+            
+            if os.path.exists(copypath) == False:
+                os.makedirs(copypath)
+            
+            #print(filepath)
+            shutil.copy(filepath,copypath)
+            
+path = "C:\\Users\\89304\\Desktop\\20news-18828"
+#TrainAndTest(path)
